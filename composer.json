@@ -15,10 +15,15 @@
             "name": "Igor Lavrov",
             "homepage": "https://github.com/lavigor",
             "role": "Developer"
+        },
+        {
+            "name": "Tomasz Wolny",
+            "homepage": "https://github.com/RoboWeb",
+            "role": "Developer, Extender, Adjuster"
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=7.0.0"
     },
     "require-dev": {
         "phpbb/epv": "dev-master"
@@ -29,9 +34,9 @@
             "phpbb/phpbb": "3.2.*"
         },
         "version-check": {
-            "host": "boardtools.github.io",
-            "directory": "/QuickReply",
-            "filename": "version.json"
+            "host": "raw.githubusercontent.com",
+            "directory": "RoboWeb/phpbb-ext-boardtools-quickreply/master",
+            "filename": "version.json?token=ABG4AEXHPGZE5IF22QNDENK7FLWUA"
         }
     }
 }
