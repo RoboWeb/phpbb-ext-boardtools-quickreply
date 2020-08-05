@@ -1,0 +1,20 @@
+Subject: Notification de nouveau message dans le sujet - « {TOPIC_TITLE} »
+
+Bonjour {USERNAME},
+
+Vous recevez cette notification car vous avez été mentionné par « {AUTHOR_NAME} » dans le sujet « {TOPIC_TITLE} » sur « {SITENAME} ». Vous pouvez utiliser le lien suivant pour consulter le message.
+
+Pour consulter le message, cliquez sur le lien suivant :
+{U_VIEW_POST}
+
+Pour consulter le sujet dans son ensemble, cliquez sur le lien suivant :
+{U_TOPIC}
+
+Pour visiter le forum, cliquez sur le lien suivant :
+{U_FORUM}
+
+Si vous ne souhaitez plus recevoir de notifications concernant les messages vous mentionnant, vous pouvez cliquer sur le lien suivant pour modifier vos paramètres de notification :
+
+{U_NOTIFICATION_SETTINGS}
+
+{EMAIL_SIG}

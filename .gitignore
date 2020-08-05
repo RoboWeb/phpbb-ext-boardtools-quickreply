@@ -1,0 +1,4 @@
+**/.vscode/*
+*lock.*
+package-lock.json
+*.zip
