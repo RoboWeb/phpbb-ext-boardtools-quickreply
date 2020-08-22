@@ -3,6 +3,6 @@
 	// https://www.phpbb.com/community/viewtopic.php?p=13589106#p13589106
 	// Hide Subject Plugin
 	$('#page-body').find('.not_first_post').each(function() {
-		$(this).next('div.search').find('div.panel-heading h3:first').css('display', 'none');
+		$(this).next('div.search').find('div.postbody h3:first').css('display', 'none');
 	});
 })(jQuery, window, document);

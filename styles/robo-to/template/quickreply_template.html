@@ -1,0 +1,275 @@
+		<!-- BEGIN postrow -->
+			<!-- EVENT viewtopic_body_postrow_post_before -->
+			<!-- IF postrow.S_FIRST_UNREAD -->
+			<a id="unread" class="anchor"<!-- IF S_UNREAD_VIEW --> data-url="{postrow.U_MINI_POST}"<!-- ENDIF -->></a>
+			<!-- ENDIF -->
+			<a id="p{postrow.POST_ID}" class="anchor"></a>
+			<div class="post has-profile <!-- IF postrow.S_ROW_COUNT is odd -->bg1<!-- ELSE -->bg2<!-- ENDIF --><!-- IF postrow.S_UNREAD_POST --> unreadpost<!-- ENDIF --><!-- IF postrow.S_POST_REPORTED --> reported<!-- ENDIF --><!-- IF postrow.S_POST_DELETED --> deleted<!-- ENDIF --><!-- IF postrow.POSTER_WARNINGS --> warned<!-- ENDIF --><!-- IF postrow.S_POST_UNAPPROVED --> unapproved<!-- ENDIF -->">
+
+				<aside class="postprofile" id="profile{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
+				<!-- IF postrow.S_ONLINE and not postrow.S_POST_HIDDEN --><div class="poster-online" title="{L_ONLINE}"></div><!-- ENDIF -->
+					<div class="<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->has-profile-rank<!-- ELSE -->no-profile-rank<!-- ENDIF --> <!-- IF postrow.POSTER_AVATAR -->has-avatar<!-- ELSE -->no-avatar<!-- ENDIF -->">
+						<div class="avatar-container"<!-- IF RA_POSTER_STYLE == 0 || RA_POSTER_STYLE == 2 --> data-toggle="dropdown"<!-- ENDIF -->>
+							<!-- EVENT viewtopic_body_avatar_before -->
+							<!-- IF postrow.POSTER_AVATAR -->
+								<!-- IF postrow.U_POST_AUTHOR --><a href="{postrow.U_POST_AUTHOR}" class="avatar">{postrow.POSTER_AVATAR}</a><!-- ELSE --><span class="avatar">{postrow.POSTER_AVATAR}</span><!-- ENDIF -->
+							<!-- ELSE -->
+								<span class="avatar-none">{postrow.POST_AUTHOR}</span>
+							<!-- ENDIF -->
+							<!-- EVENT viewtopic_body_avatar_after -->
+						</div>
+						<!-- EVENT viewtopic_body_post_author_before -->
+						<!-- IF not postrow.U_POST_AUTHOR --><strong>{postrow.POST_AUTHOR_FULL}</strong><!-- ELSE -->{postrow.POST_AUTHOR_FULL}<!-- ENDIF -->
+						<!-- IF RA_POSTER_STYLE -->
+							<span class="re-md-r"><br>
+							{postrow.RANK_TITLE}
+							<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG -->
+							<br>
+							<!-- ENDIF -->
+							{postrow.RANK_IMG}</span>
+						<!-- ENDIF -->
+						<!-- EVENT viewtopic_body_post_author_after -->
+
+						<div class="<!-- IF RA_POSTER_STYLE == 0 || RA_POSTER_STYLE == 2 -->dropdown-profile<!-- ELSEIF RA_POSTER_STYLE == 1 -->standard-profile<!-- ENDIF -->">
+							<dl class="profile-info">
+								<!-- IF not RA_POSTER_STYLE -->
+								<!-- EVENT viewtopic_body_postrow_rank_before -->
+								<!-- IF postrow.RANK_TITLE or postrow.RANK_IMG -->
+									<dt>{L_RANK}{L_COLON}</dt>
+									<dd>{postrow.RANK_TITLE}
+										<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG -->
+										<br>
+										<!-- ENDIF -->
+										{postrow.RANK_IMG}
+									</dd>
+								<!-- ENDIF -->
+								<!-- EVENT viewtopic_body_postrow_rank_after -->
+								<!-- ENDIF -->
+
+								<!-- IF postrow.POSTER_POSTS != '' -->
+									<dt>{L_POSTS}{L_COLON}</dt>
+									<dd><!-- IF postrow.U_SEARCH !== '' --><a href="{postrow.U_SEARCH}"><!-- ENDIF -->{postrow.POSTER_POSTS}<!-- IF postrow.U_SEARCH !== '' --></a><!-- ENDIF -->
+									</dd>
+								<!-- ENDIF -->
+
+								<!-- IF postrow.POSTER_JOINED -->
+									<dt>{L_JOINED}{L_COLON}</dt>
+									<dd>{postrow.POSTER_JOINED}</dd>
+								<!-- ENDIF -->
+
+								<!-- IF postrow.POSTER_WARNINGS -->
+									<dt>{L_WARNINGS}{L_COLON}</dt>
+									<dd>{postrow.POSTER_WARNINGS}</dd>
+								<!-- ENDIF -->
+
+								<!-- IF postrow.S_PROFILE_FIELD1 -->
+									<dt>{postrow.PROFILE_FIELD1_NAME}{L_COLON}</dt>
+									<dd>{postrow.PROFILE_FIELD1_VALUE}</dd>
+								<!-- ENDIF -->
+
+								<!-- EVENT viewtopic_body_postrow_custom_fields_before -->
+								<!-- BEGIN custom_fields -->
+									<!-- IF not postrow.custom_fields.S_PROFILE_CONTACT -->
+										<dt>{postrow.custom_fields.PROFILE_FIELD_NAME}{L_COLON}</dt>
+										<dd>{postrow.custom_fields.PROFILE_FIELD_VALUE}</dd>
+									<!-- ENDIF -->
+								<!-- END custom_fields -->
+								<!-- EVENT viewtopic_body_postrow_custom_fields_after -->
+							</dl>
+
+							<!-- EVENT viewtopic_body_contact_fields_before -->
+							<!-- IF not S_IS_BOT and .postrow.contact -->
+								<div class="profile-contact">
+									<span>{L_CONTACT}{L_COLON}</span>
+									<ul>
+										<!-- BEGIN contact -->
+											<li>
+												<a href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF -->>
+												{postrow.contact.NAME}
+												</a>
+											</li>
+										<!-- END contact -->
+									</ul>
+								</div>
+							<!-- ENDIF -->
+							<!-- EVENT viewtopic_body_contact_fields_after -->
+						</div>
+					</div>
+				</aside>
+
+				<article class="postbody">
+					<!-- IF postrow.S_POST_HIDDEN -->
+						<!-- IF postrow.S_POST_DELETED -->
+							<div class="ignore" id="post_hidden{postrow.POST_ID}">
+								{postrow.L_POST_DELETED_MESSAGE}<br />
+								{postrow.L_POST_DISPLAY}
+							</div>
+						<!-- ELSEIF postrow.S_IGNORE_POST -->
+							<div class="ignore" id="post_hidden{postrow.POST_ID}">
+								{postrow.L_IGNORE_POST}<br />
+								{postrow.L_POST_DISPLAY}
+							</div>
+						<!-- ENDIF -->
+					<!-- ENDIF -->
+					<div id="post_content{postrow.POST_ID}"<!-- IF postrow.S_POST_HIDDEN --> style="display: none;"<!-- ENDIF -->>
+
+					<!-- EVENT viewtopic_body_post_subject_before -->
+
+					<h3><!-- IF postrow.POST_ICON_IMG --><img src="{T_ICONS_PATH}{postrow.POST_ICON_IMG}" width="{postrow.POST_ICON_IMG_WIDTH}" height="{postrow.POST_ICON_IMG_HEIGHT}" alt="{postrow.POST_ICON_IMG_ALT}" title="{postrow.POST_ICON_IMG_ALT}" /><!-- ENDIF --><a href="{postrow.U_MINI_POST}">{postrow.POST_SUBJECT}</a></h3>
+
+					<!-- EVENT viewtopic_body_postrow_post_details_before -->
+					<a href="{postrow.U_MINI_POST}" class="post-number">#{postrow.POST_NUMBER}</a>
+					<!-- EVENT viewtopic_body_postrow_post_details_after -->
+
+					<span class="re-md post-author-r">{L_POST_BY_AUTHOR} {postrow.POST_AUTHOR_FULL}</span>
+
+					<!-- IF RA_POSTER_STYLE == 2 -->
+						<br>
+						<span class="re-md post-author-r">
+						{postrow.RANK_TITLE}
+						<!-- IF postrow.RANK_TITLE and postrow.RANK_IMG -->
+						<br>
+						<!-- ENDIF -->
+						{postrow.RANK_IMG}</span>
+					<!-- ENDIF -->
+
+					<!-- IF postrow.S_POST_UNAPPROVED -->
+					<!-- IF postrow.S_CAN_APPROVE -->
+					<form method="post" action="{postrow.U_APPROVE_ACTION}">
+						<div class="post-unapproved-notice">
+							<input type="submit" value="{L_DISAPPROVE}" name="action[disapprove]" /><input type="submit" value="{L_APPROVE}" name="action[approve]" />
+							<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}" />
+							{S_FORM_TOKEN}
+						</div>
+					</form>
+					<!-- ELSE -->
+						<div class="post-unapproved-notice">
+							<p>{L_POST_UNAPPROVED_EXPLAIN}</p>
+						</div>
+					<!-- ENDIF -->
+					<!-- ELSEIF postrow.S_POST_DELETED -->
+					<form method="post" action="{postrow.U_APPROVE_ACTION}">
+						<div class="post-deleted-notice">
+							<!-- IF postrow.S_DELETE_PERMANENT --><input type="submit" value="{L_DELETE}" name="action[delete]" /><!-- ENDIF --><input type="submit" value="{L_RESTORE}" name="action[restore]" />
+							<input type="hidden" name="post_id_list[]" value="{postrow.POST_ID}" />
+							{S_FORM_TOKEN}
+						</div>
+					</form>
+					<!-- ENDIF -->
+
+					<!-- IF postrow.S_POST_REPORTED -->
+						<a class="post-reported-notice" href="{postrow.U_MCP_REPORT}">{L_POST_REPORTED}</a>
+					<!-- ENDIF -->
+
+					<div class="post-content">{postrow.MESSAGE}</div>
+
+					<!-- EVENT viewtopic_body_postrow_content_after -->
+
+					<!-- EVENT viewtopic_body_postrow_post_notices_before -->
+					<!-- IF postrow.S_DISPLAY_NOTICE --><div class="rules">{L_DOWNLOAD_NOTICE}</div><!-- ENDIF -->
+					<!-- IF postrow.DELETED_MESSAGE or postrow.DELETE_REASON -->
+						<div class="notice post_deleted_msg">
+							{postrow.DELETED_MESSAGE}
+							<!-- IF postrow.DELETE_REASON --><br /><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.DELETE_REASON}</em><!-- ENDIF -->
+						</div>
+					<!-- ELSEIF postrow.EDITED_MESSAGE or postrow.EDIT_REASON -->
+						<div class="notice">
+							{postrow.EDITED_MESSAGE}
+							<!-- IF postrow.EDIT_REASON --><br /><strong>{L_REASON}{L_COLON}</strong> <em>{postrow.EDIT_REASON}</em><!-- ENDIF -->
+						</div>
+					<!-- ENDIF -->
+
+					<!-- IF postrow.BUMPED_MESSAGE --><div class="notice"><br /><br />{postrow.BUMPED_MESSAGE}</div><!-- ENDIF -->
+					<!-- EVENT viewtopic_body_postrow_post_notices_after -->
+					<!-- IF postrow.SIGNATURE --><div id="sig{postrow.POST_ID}" class="post-signature">{postrow.SIGNATURE}</div><!-- ENDIF -->
+					<!-- EVENT viewtopic_body_postrow_post_content_footer -->
+
+					<!-- IF postrow.S_HAS_ATTACHMENTS -->
+						<dl class="attachbox">
+							<dt>
+								{L_ATTACHMENTS}
+							</dt>
+							<!-- BEGIN attachment -->
+								<dd>{postrow.attachment.DISPLAY_ATTACHMENT}</dd>
+							<!-- END attachment -->
+						</dl>
+					<!-- ENDIF -->
+
+					<!-- DEFINE $SHOW_POST_BUTTONS = (postrow.U_EDIT or postrow.U_DELETE or postrow.U_REPORT or postrow.U_WARN or postrow.U_INFO or postrow.U_QUOTE) -->
+
+					<!-- EVENT viewtopic_body_post_buttons_list_before -->
+					<!-- IF not S_IS_BOT -->
+						<!-- IF $SHOW_POST_BUTTONS -->
+						<!-- IF postrow.U_EDIT or postrow.U_DELETE or postrow.U_REPORT or postrow.U_WARN or postrow.U_INFO or postrow.U_QUOTE -->
+							{% spaceless %}
+							<ul class="post-actions">
+								<!-- EVENT viewtopic_body_post_buttons_before -->
+								<!-- IF postrow.U_EDIT -->
+									<li>
+										<a href="{postrow.U_EDIT}" title="{L_EDIT_POST}">
+											<i class="fa fa-pencil"></i>
+											<span>{L_BUTTON_EDIT}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- IF postrow.U_DELETE -->
+									<li>
+										<a href="{postrow.U_DELETE}" title="{L_DELETE_POST}">
+											<i class="fa fa-times"></i>
+											<span>{L_BUTTON_DELETE}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- IF postrow.U_REPORT -->
+									<li>
+										<a href="{postrow.U_REPORT}" title="{L_REPORT_POST}">
+											<i class="fa fa-exclamation"></i>
+											<span>{L_BUTTON_REPORT}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- IF postrow.U_WARN -->
+									<li>
+										<a href="{postrow.U_WARN}" title="{L_WARN_USER}">
+											<i class="fa fa-exclamation-triangle"></i>
+											<span>{L_BUTTON_WARN}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- IF postrow.U_INFO -->
+									<li>
+										<a href="{postrow.U_INFO}" title="{L_INFORMATION}">
+											<i class="fa fa-info"></i>
+											<span>{L_BUTTON_INFORMATION}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- IF postrow.U_QUOTE -->
+									<li>
+										<a href="{postrow.U_QUOTE}" title="{L_REPLY_WITH_QUOTE}">
+											<i class="fa fa-quote-left"></i>
+											<span>{L_BUTTON_QUOTE}</span>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<li class="right post-date">
+									<a href="{postrow.U_MINI_POST}">
+										<time datetime="{postrow.POST_DATE_RFC3339}">{postrow.POST_DATE}</time>
+									</a>
+								</li>
+								<!-- EVENT viewtopic_body_post_buttons_after -->
+							</ul>
+							{% endspaceless %}
+						<!-- ENDIF -->
+						<!-- ENDIF -->
+					<!-- ENDIF -->
+					<!-- EVENT viewtopic_body_post_buttons_list_after -->
+
+					</div>
+					<!-- EVENT viewtopic_body_postrow_back2top_before -->
+					<!-- EVENT viewtopic_body_postrow_back2top_after -->
+				</article>
+			</div>
+
+			<!-- EVENT viewtopic_body_postrow_post_after -->
+		<!-- END postrow -->

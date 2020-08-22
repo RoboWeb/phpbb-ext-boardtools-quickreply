@@ -93,7 +93,7 @@ class plugins_helper
 		}
 
 		// ABBC3
-		$template_variables += array('S_ABBC3_INSTALLED' => $this->phpbb_extension_manager->is_enabled('vse/abbc3'));
+		$template_variables += array('S_ABBC3_INSTALLED' => $this->phpbb_extension_manager->is_enabled('robo/abbc3'));
 
 		return $template_variables;
 	}

@@ -69,7 +69,7 @@ class v_2_0_0_dev2 extends \phpbb\db\migration\migration
 			'post'	=> array(
 				'bbcode_helpline'	=> 'BBCode for QuickReply extension',
 				'bbcode_match'		=> '[post]{NUMBER}[/post]',
-				'bbcode_tpl'		=> '<a href="./viewtopic.php?p={NUMBER}#p{NUMBER}" title="{L_QR_BBPOST}"><i class="icon fa-external-link-square fa-fw icon-lightgray icon-md"></i></a>',
+				'bbcode_tpl'		=> '<a href="./viewtopic.php?p={NUMBER}#p{NUMBER}" title="{L_QR_BBPOST}"><i class="fas fa-external-link-square-alt"></i></a>',
 				'display_on_posting'=> 0,
 			),
 		);

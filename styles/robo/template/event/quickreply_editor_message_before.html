@@ -1,0 +1,17 @@
+<!-- IF S_QR_NOT_CHANGE_SUBJECT -->
+	<input type="hidden" name="subject" value="{SUBJECT}" />
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_USERNAME -->
+<dl class="form">
+	<dt><span>{L_USERNAME}{L_COLON}</span></dt>
+	<dd><input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}" class="input" /></dd>
+</dl>
+<!-- ENDIF -->
+
+<!-- IF CAPTCHA_TEMPLATE and S_CONFIRM_CODE -->
+<!-- DEFINE $CAPTCHA_TAB_INDEX = 3 -->
+<div id="qr_captcha_container">
+<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
+</div>
+<!-- ENDIF -->

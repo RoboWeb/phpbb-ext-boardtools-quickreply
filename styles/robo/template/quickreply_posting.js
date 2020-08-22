@@ -9,7 +9,7 @@
 	/*****************************/
 	if (quickreply.posting.settings.unchangedSubject) {
 		if (quickreply.posting.settings.hideSubjectBox) {
-			$("#subject").closest(".form-group").hide();
+			$("#subject").closest("dl").hide();
 		} else {
 			$('#subject').prop("readonly", true);
 		}
@@ -88,11 +88,10 @@
 		});
 	}
 
-
 	if (!quickreply.posting.settings.fullQuoteAllowed) {
-		quickQuoteButtons = postsContainer.find('.panel-heading .fa-quote-left').parent();
+		quickQuoteButtons = postsContainer.find('.post-buttons .fa-quote-left').parent('a');
 	} else if (!quickreply.posting.settings.lastQuote) {
-		quickQuoteButtons = postsContainer.find('.preview-item:first-of-type .panel-heading .fa-quote-left').parent();
+		quickQuoteButtons = postsContainer.find('.post:first-of-type .post-buttons .fa-quote-left').parent('a');
 	}
 
 	if (quickQuoteButtons && quickQuoteButtons.length) {
