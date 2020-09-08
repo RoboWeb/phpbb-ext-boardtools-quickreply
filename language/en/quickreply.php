@@ -43,9 +43,11 @@ $lang = array_merge($lang, array(
 	'QR_NO_FULL_QUOTE'                 => 'Please select a part of the message to be able to quote it.',
 	'QR_PREVIEW_CLOSE'                 => 'Close preview block',
 	'QR_PROFILE'                       => 'Go to profile',
+	'QR_PROFILE_TITLE'                 => 'Go to profile',
 	'QR_QUICKNICK'                     => 'Refer by username',
 	'QR_QUICKNICK_TITLE'               => 'Insert username in the Quick Reply form',
 	'QR_REPLY_IN_PM'                   => 'Reply in PM',
+	'QR_REPLY_IN_PM_TITLE'             => 'Reply in PM',
 	'QR_TYPE_REPLY'                    => 'Type your reply here...',
 	'QR_WARN_BEFORE_UNLOAD'            => 'Your entered reply has not been submitted and may be lost!',
 	// begin mod Translit

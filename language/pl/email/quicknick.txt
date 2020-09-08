@@ -1,20 +1,19 @@
-Subject: Topic reply notification - "{TOPIC_TITLE}"
+Subject: Powiadomienie o odpowiedzi w temacie: "{TOPIC_TITLE}"
 
-Hello {USERNAME},
+Cześć {USERNAME},
 
-You are receiving this notification because "{AUTHOR_NAME}" mentioned you in the topic "{TOPIC_TITLE}" at "{SITENAME}". You can use the following link to view the reply made.
+Otrzymałeś to powiadomienie, ponieważ "{AUTHOR_NAME}" wspomniał o Tobie w temacie: "{TOPIC_TITLE}", na "{SITENAME}". Możesz skorzystać z poniższych linków, aby wyświetlić udzieloną odpowiedź.
 
-If you want to view the post, click the following link:
+Jeśli chcesz zobaczyć odpowiedź, kliknij w poniższy link:
 {U_VIEW_POST}
 
-If you want to view the topic, click the following link:
+Jeśli chcesz zobaczyć cały temat, kliknij w poniższy link:
 {U_TOPIC}
 
-If you want to view the forum, click the following link:
+Może również po prostu przejść na stronę forum:
 {U_FORUM}
 
-If you no longer wish to receive updates about replies mentioning you, please update your notification settings here:
-
+Jeśli nie chcesz już więcej otrzymywać podobnych powiadomień, zaktualizuj swoje ustawienia powiadomień tutaj:
 {U_NOTIFICATION_SETTINGS}
 
 {EMAIL_SIG}

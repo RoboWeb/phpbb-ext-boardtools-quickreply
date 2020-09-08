@@ -232,7 +232,8 @@
         type === "last"
           ? elements.find(".post-container:last-child")
           : elements,
-      buttons = container.find(".post-buttons .fa-quote-left").parent("a");
+      buttons = container.find(".btnQuote"); // container.find(".post-buttons .fa-quote-left").parent("a");
+
     return !type
       ? buttons.not(".responsive-menu a:has(.fa-quote-left)")
       : buttons;
@@ -306,9 +307,13 @@
    *
    * @param {jQuery} $nickname Profile nickname element
    */
-  quickreply.style.getPMLink = function ($nickname) {
-    return $nickname.parents(".post").find(".contact-icon.pm-icon").parent("a");
-  };
+  // quickreply.style.getPMLink = function ($nickname) {
+  //   console.log("getPMLink", {
+  //     $nickname: $nickname,
+  //     href: $nickname.attr("href"),
+  //   });
+  //   return $nickname.parents(".post").find(".profile-contact").parent("a");
+  // };
 
   /**
    * Generates an HTML element for a dropdown element.
@@ -375,55 +380,6 @@
       pageY,
       "qr_quickquote"
     );
-  };
-
-  /**
-   * Generates an HTML element for a QuickNick dropdown element.
-   *
-   * @param {int}    pageX          X coordinate of the cursor
-   * @param {int}    pageY          Y coordinate of the cursor
-   * @param {string} viewProfileURL URL to the profile page
-   * @param {jQuery} qrPMLink       jQuery element for a "Send PM" link
-   * @returns {jQuery}
-   */
-  quickreply.style.quickNickDropdown = function (
-    pageX,
-    pageY,
-    viewProfileURL,
-    qrPMLink
-  ) {
-    var listElements = [
-      quickreply.functions.makeLink({
-        href: "#qr_postform",
-        className: "qr_quicknick",
-        title: quickreply.language.QUICKNICK_TITLE,
-        text: quickreply.language.QUICKNICK,
-      }),
-    ];
-
-    if (quickreply.settings.quickNickPM && qrPMLink.length) {
-      listElements.push(
-        quickreply.functions.makeLink({
-          href: qrPMLink.attr("href"),
-          className: "qr_reply_in_pm",
-          title: quickreply.language.REPLY_IN_PM,
-          text: quickreply.language.REPLY_IN_PM,
-        })
-      );
-    }
-
-    if (viewProfileURL) {
-      listElements.push(
-        quickreply.functions.makeLink({
-          href: viewProfileURL,
-          className: "qr_profile",
-          title: quickreply.language.PROFILE,
-          text: quickreply.language.PROFILE,
-        })
-      );
-    }
-
-    return quickreply.style.createDropdown(listElements, pageX, pageY);
   };
 
   /**

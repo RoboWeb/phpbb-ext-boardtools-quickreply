@@ -85,8 +85,13 @@
 						<div class="profile-contact">
 							<span>{L_CONTACT}{L_COLON}</span>
 							<ul>
+								<!-- IF postrow.U_POST_AUTHOR -->
+									<li>
+										<a href="{postrow.U_POST_AUTHOR}" class="profile">{L_READ_PROFILE}</a>
+									</li>
+								<!-- ENDIF -->
 								<!-- BEGIN contact -->
-									<li><a href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF -->>
+									<li><a  class="{postrow.contact.S_BLOCK_NAME}_{postrow.contact.ID}" href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" title="{postrow.contact.NAME}"<!-- IF postrow.contact.ID eq 'jabber' --> onclick="popup(this.href, 750, 320); return false;"<!-- ENDIF -->>
 										{% EVENT viewtopic_body_contact_icon_prepend %}
 										{postrow.contact.NAME}
 										{% EVENT viewtopic_body_contact_icon_append %}
@@ -252,6 +257,18 @@
 									<span>{L_BUTTON_INFORMATION}</span>
 								</a>
 							</li>
+						<!-- ENDIF -->
+						<!-- IF not S_IS_BOT and .postrow.contact -->
+							<!-- BEGIN contact -->
+								<!-- IF postrow.contact.ID eq 'pm' -->
+								<li>
+									<a class="btnReplyAtPM" href="<!-- IF postrow.contact.U_CONTACT -->{postrow.contact.U_CONTACT}<!-- ELSE -->{postrow.U_POST_AUTHOR}<!-- ENDIF -->" title="{postrow.contact.NAME}">
+										<i class="fas fa-envelope"></i>
+										<span>{L_REPLY_IN_PRIVATE_MESSAGE}</span>
+									</a>
+								</li>
+								<!-- ENDIF -->
+							<!-- END contact -->
 						<!-- ENDIF -->
 						<!-- IF postrow.U_QUOTE -->
 							<li>
