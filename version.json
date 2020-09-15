@@ -1,7 +1,7 @@
 {
     "unstable": {
         "2.0.1-beta4": {
-            "current": "2.0.0-beta4",
+            "current": "2.0.1-beta.4",
             "announcement": "https://github.com/RoboWeb/phpbb-ext-boardtools-quickreply/releases",
             "download": "https://github.com/RoboWeb/phpbb-ext-boardtools-quickreply/archive/master.zip",
             "eol": null,
