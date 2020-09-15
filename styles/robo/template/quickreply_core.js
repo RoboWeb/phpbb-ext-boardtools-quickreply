@@ -970,7 +970,7 @@
         self.toggleBtn.show();
       }
 
-      setFormWidth();
+      // setFormWidth();
       setTimeout(function () {
         self.$.removeClass("no_transition");
       }, 0);
@@ -1094,14 +1094,14 @@
         .find(".post-content")
         .html(ops.content)
         .end();
-      if (quickreply.settings.attachBox) {
-        if (ops.removeAttachBox) {
-          $preview.find("dl.attachbox").remove();
-        }
-        if (ops.attachments) {
-          $preview.find(".post-content").after(ops.attachments);
-        }
-      }
+      // if (quickreply.settings.attachBox) {
+      //   if (ops.removeAttachBox) {
+      //     $preview.find("dl.attachbox").remove();
+      //   }
+      //   if (ops.attachments) {
+      //     $preview.find(".post-content").after(ops.attachments);
+      //   }
+      // }
     };
 
     /**
@@ -1152,11 +1152,13 @@
             if ($("#qr_loading_explain").is(":empty")) {
               switch ($clickedButton.attr("name")) {
                 case "preview":
+                  console.log("clicked preview");
                   quickreply.loading.setExplain(
                     quickreply.language.loading.PREVIEW
                   );
                   break;
                 case "post":
+                  console.log("clicked post");
                   quickreply.loading.setExplain(
                     quickreply.language.loading.SUBMITTING
                   );

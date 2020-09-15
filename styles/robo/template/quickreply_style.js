@@ -347,15 +347,9 @@
     appendClass = appendClass ? " " + appendClass : "";
 
     return $(
-      '<div class="dropdown-box qr_dropdown' +
-        appendClass +
-        '" style="' +
-        dropdownStyle +
-        '"><div class="pointer" style="' +
-        pointerStyle +
-        '"><div class="pointer-inner"></div></div><ul class="dropdown-contents dropdown-nonscroll"><li>' +
-        contentRows.join("</li><li>") +
-        "</li></ul></div>"
+      `<div class="dropdown-box qr_dropdown ${appendClass}" style="${dropdownStyle}"><div class="pointer" style="${pointerStyle}"><div class="pointer-inner"></div></div><ul class="dropdown-contents dropdown-nonscroll"><li>${contentRows.join(
+        "</li><li>"
+      )}</li></ul></div>`
     ).appendTo("body");
   };
 
