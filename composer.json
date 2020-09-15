@@ -2,8 +2,8 @@
     "name": "boardtools/quickreply",
     "type": "phpbb-extension",
     "description": "Extended possibilities to use the QuickReply feature.",
-    "homepage": "http://boardtools.github.io/QuickReply/",
-    "version": "2.0.0-beta4",
+    "homepage": "https://github.com/RoboWeb/phpbb-ext-boardtools-quickreply",
+    "version": "2.0.1-beta4",
     "license": "GPL-2.0",
     "authors": [
         {
@@ -36,7 +36,7 @@
         "version-check": {
             "host": "raw.githubusercontent.com",
             "directory": "RoboWeb/phpbb-ext-boardtools-quickreply/master",
-            "filename": "version.json?token=ABG4AEXHPGZE5IF22QNDENK7FLWUA"
+            "filename": "version.json"
         }
     }
 }

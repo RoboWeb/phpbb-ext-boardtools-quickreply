@@ -23,10 +23,10 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	// Translate according to plural rules.
 	'NOTIFICATION_QUICKNICK' => array(
-		1 => '<strong>Mentioned</strong> by %1$s in the message:',
+		1 => '<strong>Wspomniany</strong> przez %1$s w wiadomości:',
 	),
 
-	'NOTIFICATION_TYPE_QUICKNICK' => 'You have been mentioned in the message',
+	'NOTIFICATION_TYPE_QUICKNICK' => 'Ktoś wspomniał o Tobie w wiadomości',
 
-	'QR_BBPOST' => 'Source of the post',
+	'QR_BBPOST' => 'Link do źródła',
 ));

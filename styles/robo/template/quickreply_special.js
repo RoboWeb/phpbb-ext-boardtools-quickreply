@@ -9,12 +9,15 @@
 	 */
 	quickreply.special.functions.qr_hide_subject = function (elements) {
 		if (quickreply.special.hideSubject) {
-			elements.find('div.post-body').each(function () {
-				// Ignore titles with action buttons.
-				var qr_post_subject_wrapper = $(this).find('.panel-heading:not(:has(.pull-right:has(*)))'),
-					qr_post_subject = qr_post_subject_wrapper.find('h3').not('.first');
+			elements.find('div.post').each(function () {
+				var qr_post_subject = $(this).find('.postbody div h3:first').not('.first');
 				if (qr_post_subject.length) {
-					qr_post_subject_wrapper.css('display', 'none');
+					$(this).find('.postbody .post-number').css('display', 'none');
+					$(this).find('.post-content').css({
+						borderTop: 'none',
+						paddingTop: 0,
+					});
+					qr_post_subject.css('display', 'none');
 					$(this).addClass('hidden_subject');
 				}
 			});

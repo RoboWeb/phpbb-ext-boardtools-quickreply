@@ -1,0 +1,327 @@
+<!-- BEGIN quickreply styles/robo/template/event/quickreply_editor_message_after -->
+<script type="text/javascript">
+// <![CDATA[
+	var form_name = 'qr_postform';
+	var text_name = <!-- IF $SIG_EDIT -->'signature'<!-- ELSE -->'message'<!-- ENDIF -->;
+	var load_draft = false;
+	var upload = false;
+
+	// Define the bbCode tags
+	var bbcode = new Array();
+	var bbtags = new Array('[b]','[/b]','[i]','[/i]','[u]','[/u]','[quote]','[/quote]','[code]','[/code]','[list]','[/list]','[list=]','[/list]','[img]','[/img]','[url]','[/url]','[flash=]', '[/flash]','[size=]','[/size]'<!-- BEGIN custom_tags -->, {custom_tags.BBCODE_NAME}<!-- END custom_tags -->);
+    var imageTag = false;
+
+	function change_palette(tobbcode){
+        if (!tobbcode) tobbcode = 'color';
+        console.log("posting_editor_buttons_after", tobbcode);
+        const ph = document.getElementById('color_palette_placeholder');
+        const e = document.getElementById('colour_palette');
+        
+        ph.setAttribute('data-tobbcode', tobbcode);
+
+        phpbb.toggleDisplay('colour_palette');
+        
+        if (e.style.display == 'block'){
+            document.getElementById('bbpalette').value = '{LA_FONT_COLOR_HIDE}';
+        } else {
+            document.getElementById('bbpalette').value = '{LA_FONT_COLOR}';
+        }
+    }
+    /*global theSelection */
+    var copyPaste = '';
+    function bbcodeToPlain(data){if(data.indexOf("[")<0)return data;function bbcodeToPlainSimpleReplace(str){return str.replace(basicBBcodeMatch,bbcodeToPlainPattern)}function bbcodeToPlainPattern(match_0,match_1,match_2,match_3){return match_3&&match_3.indexOf("[")>-1&&(match_3=bbcodeToPlainSimpleReplace(match_3)),match_3}var basicBBcodeMatch=new RegExp("\\[([a-z][a-z0-9]*)(?:=([^\\]]+))?]((?:.|[\r\n])*?)\\[/\\1]","gim");return bbcodeToPlainSimpleReplace(data)}function bbspecial(bbcode,bbcodeId){var theSelection=!1,textarea=document.forms[form_name].elements[text_name],selLength,selStart,selEnd,s1,s2,s3;switch(textarea.focus(),clientVer>=4&&is_ie&&is_win?theSelection=document.selection.createRange().text:document.forms[form_name].elements[text_name].selectionEnd&&document.forms[form_name].elements[text_name].selectionEnd-document.forms[form_name].elements[text_name].selectionStart>0&&(selLength=void 0===(selLength=textarea.textLength)||""===selLength||null===selLength?textarea.value.length:selLength,selStart=textarea.selectionStart,1!==(selEnd=textarea.selectionEnd)&&2!==selEnd||(selEnd=selLength),s1=textarea.value.substring(0,selStart),s2=textarea.value.substring(selStart,selEnd),s3=textarea.value.substring(selEnd,selLength),theSelection=s2),bbcode){case"abbc3_plain":if(!theSelection)return void alert("{{ lang('ABBC3_NOSELECT_ERROR')|e('js') }}");try{var tempSelection=bbcodeToPlain(theSelection);clientVer>=4&&is_ie&&is_win?document.selection.createRange().text=tempSelection:textarea.selectionEnd&&textarea.selectionEnd-textarea.selectionStart>0&&(textarea.value=s1+tempSelection+s3,selEnd=textarea.selectionEnd=textarea.value.substring(0,selStart).length+tempSelection.length)}catch(e){}break;case"abbc3_copy":if(!theSelection)return void alert("{{ lang('ABBC3_NOSELECT_ERROR')|e('js') }}");copyPaste=theSelection;break;case"abbc3_paste":copyPaste?bbfontstyle(copyPaste,""):alert("{{ lang('ABBC3_PASTE_ERROR')|e('js') }}");break;case"float":case"float=":bbfontstyle("[float=left]","[/float]");break;case"dir":case"dir=":bbfontstyle("[dir=rtl]","[/dir]");break;case"marq":case"marq=":bbfontstyle("[marq=left]","[/marq]");break;case"mod":case"mod=":bbfontstyle('[mod={{ ABBC3_USERNAME|e("js") }}]',"[/mod]");break;case"highlight":case"highlight=":bbfontstyle("[highlight]","[/highlight]");break;case"glow":case"glow=":bbfontstyle("[glow]","[/glow]");break;case"shadow":case"shadow=":bbfontstyle("[shadow]","[/shadow]");break;case"dropshadow":case"dropshadow=":bbfontstyle("[dropshadow]","[/dropshadow]");break;case"blur":case"blur=":bbfontstyle("[blur]","[/blur]");break;case"bbvideo":case"BBvideo":case"BBvideo=":theSelection||phpbb.isTouch?bbfontstyle("[bbvideo]","[/bbvideo]"):bbwizard("{{ UA_ABBC3_BBVIDEO_WIZARD }}","bbvideo");break;case"url":theSelection||phpbb.isTouch?bbstyle(16):bbwizard("{{ UA_ABBC3_URL_WIZARD }}","url");break;case"pipes":bbwizard("{{ UA_ABBC3_PIPES_WIZARD }}");break;default:bbstyle(Number(bbcodeId))}theSelection=""}
+    
+
+// ]]>
+</script>
+<!-- INCLUDEJS {T_ASSETS_PATH}/javascript/editor.js?assets_version={T_ASSETS_VERSION} -->
+
+{% set ABBC3_ICONS = ROOT_PATH ~ ABBC3_BBCODE_ICONS %}
+{% set r_tags = {} %}
+{% set r_tags = r_tags|merge({ 'align': {}}) %}
+{% for custom_tag in custom_tags %}
+<!-- index: {{ loop.index0 }}, tag: {{ custom_tag.BBCODE_TAG }}, id: {{ custom_tag.BBCODE_ID }}, tag_clean: {{ custom_tag.BBCODE_TAG_CLEAN }} -->
+	{% if custom_tag.BBCODE_TAG_CLEAN == 's' %}         {% set r_tags = r_tags|merge({ 's': custom_tag }) %}            {% endif %} 
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'highlight' %} {% set r_tags = r_tags|merge({ 'highlight': custom_tag }) %}    {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'AKAPIT' %}    {% set r_tags = r_tags|merge({ 'AKAPIT': custom_tag }) %}       {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'left' %}      {% set r_tags = r_tags|merge({ 'left': custom_tag }) %}         {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'right' %}     {% set r_tags = r_tags|merge({ 'right': custom_tag }) %}        {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'center' %}    {% set r_tags = r_tags|merge({ 'center': custom_tag }) %}          {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'justify' %}   {% set r_tags = r_tags|merge({ 'justify': custom_tag }) %}      {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'nfo' %}       {% set r_tags = r_tags|merge({ 'nfo': custom_tag }) %}          {% endif %}
+	{% if custom_tag.BBCODE_TAG_CLEAN == 'mod' %}       {% set r_tags = r_tags|merge({ 'mod': custom_tag }) %}          {% endif %}
+{% endfor %}
+
+<!-- IF S_BBCODE_ALLOWED -->
+<div id="colour_palette" style="display: none;">
+	<div id="color_palette_placeholder" class="color_palette_placeholder" data-color-palette="h" data-height="12" data-width="15" data-bbcode="true"></div>
+</div>
+
+{% spaceless %}
+<div id="format-buttons">
+	<button type="button" class="abbc3_button bbcode-b" accesskey="b" name="addbbcode0" onclick="bbstyle(0)" title="{L_BBCODE_B_HELP}">
+		<i class="fas fa-bold"></i>
+	</button>
+	<button type="button" class="abbc3_button bbcode-i" accesskey="i" name="addbbcode2" onclick="bbstyle(2)" title="{L_BBCODE_I_HELP}">
+		<i class="fas fa-italic"></i>
+	</button>
+	<button type="button" class="abbc3_button bbcode-u" accesskey="u" name="addbbcode4" onclick="bbstyle(4)" title="{L_BBCODE_U_HELP}">
+		<i class="fas fa-underline"></i>
+	</button>
+	<!-- tag [s] -->
+	{% if r_tags.s %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.s.BBCODE_TAG_CLEAN }}" accesskey="s" name="addbbcode{{ r_tags.s.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.s.BBCODE_ID }}'))" title="{{ r_tags.s.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-strikethrough"></i>
+	</button>
+	{% endif %}
+	
+	<div class="spacer"></div>
+
+	<button type="button" class="abbc3_button bbcode-color" name="bbpalette" id="bbpalette" onclick="change_palette('color');" title="{L_BBCODE_S_HELP}">
+		<i class="fas fa-font"></i>
+	</button>
+	<!-- tag [highlight] -->
+	{% if r_tags.highlight %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.highlight.BBCODE_TAG_CLEAN }}" name="addbbcode{{ r_tags.highlight.BBCODE_ID }}" onclick="change_palette('{{ r_tags.highlight.BBCODE_TAG_CLEAN }}');" title="{{ r_tags.highlight.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-paint-roller"></i>
+	</button>
+	{% endif %}
+	
+	<div class="abbc3_button bbcode-size">
+		<button data-toggle="dropdown" title="{L_BBCODE_F_HELP}" name="addbbcode20">
+			<i class="fas fa-font"></i>
+			<i class="fas fa-font"></i>
+		</button>
+		<ul class="dropdown-box">
+			<li data-bbcode-size="50" onclick="bbfontstyle('[size=50]', '[/size]');this.form.addbbcode20.selectedIndex = 2;"><a href="javascript:void(0)">{L_FONT_TINY}</a></li>
+			<li data-bbcode-size="85" onclick="bbfontstyle('[size=85]', '[/size]');this.form.addbbcode20.selectedIndex = 2;"><a href="javascript:void(0)">{L_FONT_SMALL}</a></li>
+			<li data-bbcode-size="100" onclick="bbfontstyle('[size=100]', '[/size]');this.form.addbbcode20.selectedIndex = 2;"><a href="javascript:void(0)">{L_FONT_NORMAL}</a></li>
+			
+			{% if not MAX_FONT_SIZE or MAX_FONT_SIZE >= 150 %}
+				<li data-bbcode-size="150" onclick="bbfontstyle('[size=150]', '[/size]');this.form.addbbcode20.selectedIndex = 2;"><a href="javascript:void(0)">{L_FONT_LARGE}</a></li>
+				{% if not MAX_FONT_SIZE or MAX_FONT_SIZE >= 200 %}
+					<li data-bbcode-size="200" onclick="bbfontstyle('[size=200]', '[/size]');this.form.addbbcode20.selectedIndex = 2;"><a href="javascript:void(0)">{L_FONT_HUGE}</a></li>
+				{% endif %}
+			{% endif %}
+		</ul>
+	</div>
+	
+	<div class="spacer"></div>
+	<!-- [AKAPIT] -->
+	{% if r_tags.AKAPIT %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.AKAPIT.BBCODE_TAG_CLEAN }}" name="addbbcode{{ r_tags.AKAPIT.BBCODE_TAG }}" onclick="bbstyle(Number('{{ r_tags.AKAPIT.BBCODE_ID }}'))" title="{{ r_tags.AKAPIT.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-stream"></i>
+	</button>
+	{% endif %}
+	
+	{% if S_BBCODE_QUOTE %}
+		<button type="button" class="abbc3_button bbcode-quote" accesskey="q" name="addbbcode6" onclick="bbstyle(6)" title="{L_BBCODE_Q_HELP}">
+			<i class="fas fa-quote-left"></i>
+		</button>
+	{% endif %}
+	<button type="button" class="abbc3_button bbcode-code" accesskey="c" name="addbbcode8" onclick="bbstyle(8)" title="{L_BBCODE_C_HELP}">
+		<i class="fas fa-code"></i>
+	</button>
+	<button type="button" class="abbc3_button bbcode-list" accesskey="l" name="addbbcode10" onclick="bbstyle(10)" title="{L_BBCODE_L_HELP}">
+		<i class="fas fa-list-ul"></i>
+	</button>
+	<button type="button" class="abbc3_button bbcode-list-" accesskey="o" name="addbbcode12" onclick="bbstyle(12)" title="{L_BBCODE_O_HELP}">
+		<i class="fas fa-list-ol"></i>
+	</button>
+	<button type="button" class="abbc3_button bbcode-asterisk" accesskey="y" name="addlistitem" onclick="bbstyle(-1)" title="{L_BBCODE_LISTITEM_HELP}">
+		<i class="fas fa-asterisk"></i>
+	</button>
+	
+	<div class="spacer"></div>
+	
+	<!-- IF S_BBCODE_IMG -->
+		<button type="button" class="abbc3_button bbcode-img" accesskey="p" name="addbbcode14" onclick="bbstyle(14)" title="{L_BBCODE_P_HELP}" >
+			<i class="far fa-image"></i>
+		</button>
+	<!-- ENDIF -->
+	<!-- IF S_LINKS_ALLOWED -->
+		<button type="button" class="abbc3_button bbcode-url" accesskey="w" name="addbbcode16" onclick="bbspecial('url')" title="{L_BBCODE_W_HELP}" >
+			<i class="fas fa-link"></i>
+		</button>
+	<!-- ENDIF -->
+	
+	
+	<!-- aling left, right, center, justify -->
+	<div class="spacer"></div>
+	
+	<!-- [left] -->
+	{% if r_tags.left %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.left.BBCODE_TAG_CLEAN }}" accesskey="CTRL + l" name="addbbcode{{ r_tags.left.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.left.BBCODE_ID }}'))" title="{{ r_tags.left.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-align-left"></i>
+	</button>
+	{% endif %}
+	<!-- [right] -->
+	{% if r_tags.right %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.right.BBCODE_TAG_CLEAN }}" accesskey="CTRL + r" name="addbbcode{{ r_tags.right.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.right.BBCODE_ID }}'))" title="{{ r_tags.right.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-align-right"></i>
+	</button>
+	{% endif %}
+	<!-- center -->
+	{% if r_tags.center %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.center.BBCODE_TAG_CLEAN }}" accesskey="CTRL + c" name="addbbcode{{ r_tags.center.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.center.BBCODE_ID }}'))" title="{{ r_tags.center.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-align-center"></i>
+	</button>
+	{% endif %}
+	<!-- justify -->
+	{% if r_tags.justify %}
+	<button type="button" class="abbc3_button bbcode-{{ r_tags.justify.BBCODE_TAG_CLEAN }}" accesskey="CTRL + j" name="addbbcode{{ r_tags.justify.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.justify.BBCODE_ID }}'))" title="{{ r_tags.justify.BBCODE_HELPLINE|e('html_attr') }}">
+		<i class="fas fa-align-justify"></i>
+	</button>
+	{% endif %}
+	
+	<!-- copy, paste, clear -->
+	<div class="spacer"></div>
+	<button type="button" class="abbc3_button" name="copybbcode" value=" " onclick="bbspecial('abbc3_copy')" title="{{ lang('ABBC3_COPY_BBCODE') }}">
+		<i class="far fa-copy"></i>
+	</button>
+	<button type="button" class="abbc3_button" name="pastebbcode" value=" " onclick="bbspecial('abbc3_paste')" title="{{ lang('ABBC3_PASTE_BBCODE') }}">
+		<i class="fas fa-paste"></i>
+	</button>
+	<button type="button" class="abbc3_button" name="plainbbcode" value=" " onclick="bbspecial('abbc3_plain')" title="{{ lang('ABBC3_PLAIN_BBCODE') }}">
+		<i class="fas fa-remove-format"></i>
+	</button>
+
+	<!-- EVENT ext_quickreply_editor_buttons_custom_tags_before -->
+	<!-- BEGIN custom tags  -->
+
+	<div class="abbc3_buttons_row" style="border-top:0;">
+		<!-- EVENT posting_editor_buttons_custom_tags_before -->
+		{% for custom_tag in custom_tags %}
+			{% if custom_tag.S_CUSTOM_BBCODE_ALLOWED and custom_tag.BBCODE_TAG_CLEAN not in r_tags|keys  %}
+				{% if custom_tag.BBCODE_TAG_CLEAN == 'float' %}
+					<!-- [float] -->
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-align-justify"></i>
+						<i class="fas fa-square"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'pre' %}
+					<!-- [pre] -->
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-align-justify"></i>
+						<span class="pre mark-1"></span>
+						<span class="pre mark-2"></span>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'sup' %}
+					<!-- [sup] -->
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-superscript"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'sub' %}
+					<!-- [sub] -->
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-subscript"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN in ['glow', 'shadow', 'dropshadow', 'blur', 'fade'] %}
+					{% if custom_tag.BBCODE_TAG_CLEAN == 'glow' %}
+						<div class="spacer"></div>
+						<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="change_palette('{{ custom_tag.BBCODE_TAG_CLEAN }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+							<i class="fas fa-font"></i>
+						</button>
+					{% endif %}
+					{% if custom_tag.BBCODE_TAG_CLEAN == 'shadow' %}
+						<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="change_palette('{{ custom_tag.BBCODE_TAG_CLEAN }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+							<i class="fas fa-font"></i>
+						</button>
+					{% endif %}
+					{% if custom_tag.BBCODE_TAG_CLEAN == 'dropshadow' %}
+						<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="change_palette('{{ custom_tag.BBCODE_TAG_CLEAN }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+							<i class="fas fa-font"></i>
+						</button>
+					{% endif %}
+					{% if custom_tag.BBCODE_TAG_CLEAN == 'blur' %}
+						<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="change_palette('{{ custom_tag.BBCODE_TAG_CLEAN }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+							<i class="fas fa-font"></i>
+						</button>
+					{% endif %}
+					{% if custom_tag.BBCODE_TAG_CLEAN == 'fade' %}
+						<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+							<i class="fas fa-font"></i>
+						</button>
+						<div class="spacer"></div>
+					{% endif %}
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'marq' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-arrows-alt"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'spoil' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-exclamation"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'offtopic' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="far fa-comment-alt"></i>
+					</button>
+					
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'soundcloud' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbstyle(Number('{{ custom_tag.BBCODE_ID }}'))" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fab fa-soundcloud"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'BBvideo' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fab fa-youtube"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'ref' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="change_palette('{{ custom_tag.BBCODE_TAG_CLEAN }}')" title="Oznacz użytkownika">
+						<span>@</span>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'dir' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-exchange-alt"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'hidden' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-low-vision"></i>
+					</button>
+				{% elseif custom_tag.BBCODE_TAG_CLEAN == 'pipes' %}
+					<button type="button" class="abbc3_button bbcode-{{ custom_tag.BBCODE_TAG_CLEAN }}" name="addbbcode{{ custom_tag.BBCODE_ID }}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						<i class="fas fa-table"></i>
+					</button>
+	
+				{% else %}
+					<button type="button" class="abbc3_button bbcode-{custom_tag.BBCODE_TAG_CLEAN}" name="addbbcode{custom_tag.BBCODE_ID}" onclick="bbspecial('{{ custom_tag.BBCODE_TAG }}', '{{ custom_tag.BBCODE_ID }}')" title="{{ custom_tag.BBCODE_HELPLINE|e('html_attr') }}">
+						{custom_tag.BBCODE_TAG}
+					</button>
+				{% endif %}
+			{% endif %}
+	  
+		{% endfor %}
+		<div class="spacer"></div>
+		<!-- bbcode [nfo] -->
+		{% if r_tags.nfo %}
+		<button type="button" class="abbc3_button bbcode-{{ r_tags.nfo.BBCODE_TAG_CLEAN }}" name="addbbcode{{ r_tags.nfo.BBCODE_ID }}" onclick="bbstyle(Number('{{ r_tags.nfo.BBCODE_ID }}'))" title="{{ r_tags.nfo.BBCODE_HELPLINE|e('html_attr') }}">
+			<i class="fas fa-info"></i>
+		</button>
+		{% endif %}
+		<!--  bbcode [mod] -->
+		{% if r_tags.mod %}
+		<button type="button" class="abbc3_button bbcode-{{ r_tags.mod.BBCODE_TAG_CLEAN }}" name="addbbcode{{ r_tags.mod.BBCODE_ID }}" onclick="bbspecial('{{ r_tags.mod.BBCODE_TAG }}', '{{ r_tags.mod.BBCODE_ID }}')" title="{{ r_tags.mod.BBCODE_HELPLINE|e('html_attr') }}">
+			<i class="fas fa-exclamation-triangle"></i>
+		</button>
+		{% endif %}
+	</div>
+
+	<!-- END custom tags -->
+
+	<pre>
+	<!-- EVENT ext_quickreply_editor_buttons_after -->
+</pre>
+	<!-- EVENT ext_quickreply_smiley_box_prepend -->
+	<!-- IF S_SMILIES_ALLOWED and .smiley -->
+		<div class="smilies-button">
+			<span aria-expanded="true" data-toggle="dropdown"><i class="far fa-smile"></i></span>
+			<div class="smilies-box"><!-- BEGIN smiley --><a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a><!-- END smiley --><!-- IF S_SHOW_SMILEY_LINK --><a href="{U_MORE_SMILIES}" onclick="popup(this.href, 750, 350, '_phpbbsmilies'); return false;" class="smilies-more">{L_MORE_SMILIES}</a><!-- ENDIF --></div>
+		</div>
+	<!-- ENDIF -->
+	<!-- EVENT ext_quickreply_smiley_box_append -->
+
+	<!-- EVENT ext_quickreply_transform_text_buttons_after -->
+</div>
+{% endspaceless %}
+<!-- ENDIF -->
+
+<!-- END quickreply styles/robo/template/event/quickreply_editor_message_after -->
